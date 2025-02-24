@@ -1,0 +1,41 @@
+/* src/pages/Home.css */
+.home-container {
+    background-color: #5725A3;
+    min-height: 100vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    font-family: sans-serif; /* Adjust to your desired font */
+  }
+  
+  .hero-content {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+  
+  .image-row {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .hero-image {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    /* If you want angled shapes, you can explore clip-path:
+       clip-path: polygon(...); 
+    */
+    border-radius: 8px; /* example styling */
+  }

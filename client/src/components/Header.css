@@ -1,0 +1,10 @@
+/* src/components/Header.css */
+.header {
+    text-align: center;
+    background-color: #5725A3;
+    padding: 20px;
+  }
+  .header h1 {
+    font-size: 2rem;
+    color: #333;
+  }
