@@ -57,3 +57,9 @@
     height: 100%;
     object-fit: cover; /* Ensures the image covers the container */
   }
+  
+  .bottom-image-container {
+    width: 75%;
+    margin: 50px auto 0 auto; /* centers container, pushes it down from preceding content */
+  }
+  
