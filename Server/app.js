@@ -3,8 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./Routes/UserRoutes');
 const movieRoutes = require('./Routes/MovieRoutes');
+const cors = require('cors');
+
 
 const app = express();
+app.use(cors());
 
 // Env vars
 const PORT = process.env.PORT || 1234;

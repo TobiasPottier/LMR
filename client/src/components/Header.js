@@ -1,4 +1,4 @@
-// src/components/Header.js
+// src/Components/Header.js
 import React from 'react';
 import './Header.css';
 import logo from '../Assets/movieLogo.png';

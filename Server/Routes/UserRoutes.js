@@ -46,4 +46,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Route to print email
+router.post('/email', (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  res.status(200).send(`Received email: ${email}`);
+});
+
 module.exports = router;

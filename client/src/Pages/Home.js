@@ -1,6 +1,7 @@
 // Home.js
 import React from 'react';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -51,19 +52,21 @@ function Home() {
         <h1 className="hero-title">Don't miss out on your next favorite movie</h1>
         <hr style={{ border: '1px solid black', width: '100%' }} />
       </div>
-      {/* Sign up button */}
+      {/* Start Now button */}
       <div style={{ textAlign: 'center', marginTop: '50px' }}>
-        <button style={{
-          padding: '30px 100px',
-          fontSize: '48px',
-          backgroundColor: '#FF4500',
-          color: 'white',
-          border: 'none',
-          borderRadius: '30px',
-          cursor: 'pointer'
-        }}>
-          Start Now
-        </button>
+        <Link to="/Startnow">
+          <button style={{
+            padding: '30px 100px',
+            fontSize: '48px',
+            backgroundColor: '#FF4500',
+            color: 'white',
+            border: 'none',
+            borderRadius: '30px',
+            cursor: 'pointer'
+          }}>
+            Start Now
+          </button>
+        </Link>
       </div>
       {/* Bottom Image */}
       <div className="bottom-image-container">

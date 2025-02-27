@@ -1,6 +1,7 @@
 import React from 'react';
-import Home from './Home';
-import Header from './components/Header';
+import Home from './Pages/Home';
+import Startnow from './Pages/Startnow';
+import Header from './Components/Header';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ function App() {
         {/* Add other components like SearchBar or MovieCards here */}
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Future routes can go here, e.g. <Route path="/login" element={<Login />} /> */}
+          <Route path="/Startnow" element={<Startnow />} />
         </Routes>
       </div>
     </Router>
