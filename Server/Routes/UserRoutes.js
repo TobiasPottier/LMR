@@ -46,11 +46,21 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Route to print email
-router.post('/email', (req, res) => {
-  const { email } = req.body;
-  console.log(email);
-  res.status(200).send(`Received email: ${email}`);
+// Route to check if user email exists in database
+router.post('/email', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(200).json({ email_exists: false });
+    }
+
+    res.status(200).json({ email_exists: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = router;

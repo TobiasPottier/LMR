@@ -1,0 +1,6 @@
+POST http://localhost:3001/users/email
+Content-Type: application/json
+
+{
+    "email": "2.@gmail.com"
+}

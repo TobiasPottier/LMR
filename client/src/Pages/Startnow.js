@@ -40,9 +40,18 @@ function StartNow() {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Network response was not ok');
       }
-
+      else {
+        const data = await response.json();
+        console.log('Email status:', data);
+        if (data.email_exists) {
+          window.location.href = '/login';
+        } else {
+          window.location.href = '/signup';
+        }
+      }
     } catch (err) {
       console.error('Error sending email:', err);
     }
