@@ -47,9 +47,9 @@ function StartNow() {
         const data = await response.json();
         console.log('Email status:', data);
         if (data.email_exists) {
-          window.location.href = '/login';
+          window.location.href = '/Login';
         } else {
-          window.location.href = '/signup';
+          window.location.href = '/Signup';
         }
       }
     } catch (err) {
