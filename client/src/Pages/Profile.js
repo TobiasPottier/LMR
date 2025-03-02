@@ -1,8 +1,10 @@
 // src/pages/Profile.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
@@ -13,7 +15,7 @@ function Profile() {
       return;
     }
 
-    // Fetch user data from /users/me
+    // Fetch user data using the /users/me endpoint
     fetch('http://localhost:3001/users/me', {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -35,6 +37,12 @@ function Profile() {
       });
   }, []);
 
+  const handleLogout = () => {
+    // Remove the token and redirect to /startnow
+    localStorage.removeItem('token');
+    navigate('/startnow');
+  };
+
   if (error) {
     return <div className="profile-container">{error}</div>;
   }
@@ -47,7 +55,10 @@ function Profile() {
     <div className="profile-container">
       <h1>Welcome, {user.username}!</h1>
       <p>Email: {user.email}</p>
-      {/* Display other user details as needed */}
+      {/* Additional user details can go here */}
+      <button onClick={handleLogout} className="logout-button">
+        Logout
+      </button>
     </div>
   );
 }

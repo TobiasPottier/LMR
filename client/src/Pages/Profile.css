@@ -20,4 +20,19 @@
   .profile-container p {
     font-size: 1rem;
     color: #555;
+    margin-bottom: 2rem;
+  }
+  
+  .logout-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #FF4500;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    background-color: #e03e00;
   }
