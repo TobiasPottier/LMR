@@ -27,9 +27,8 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log('Backend response:', data);
-      // On successful login, redirect to your desired page (e.g., dashboard)
-      navigate('/dashboard'); // change this as needed
+      localStorage.setItem('token', data.token); // store JWT
+      navigate('/profile'); // change this as needed
     } catch (err) {
       console.error('Error during login:', err);
       setError('Invalid credentials, please try again.');

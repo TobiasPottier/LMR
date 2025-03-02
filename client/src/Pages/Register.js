@@ -26,8 +26,29 @@ function Register() {
 
       const data = await response.json();
       console.log('Backend response:', data);
-      // After successful registration, navigate to login or another page
-      navigate('/login');
+      // After successful registration, login the user
+      // Send the login request to the backend
+      try {
+        const response = await fetch('http://localhost:3001/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Login failed');
+        }
+
+        const data = await response.json();
+        console.log('Backend response:', data);
+        // On successful login, redirect to your desired page (e.g., dashboard)
+        navigate('/dashboard'); // change this as needed
+      } catch (err) {
+        console.error('Error during login:', err);
+        setError('Invalid credentials, please try again.');
+      }
     } catch (err) {
       console.error('Error during registration:', err);
       setError('Registration failed, please try again.');

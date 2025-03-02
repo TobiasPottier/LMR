@@ -1,0 +1,23 @@
+/* src/pages/Profile.css */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    background-color: #fafafa;
+    padding: 2rem;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .profile-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .profile-container p {
+    font-size: 1rem;
+    color: #555;
+  }
