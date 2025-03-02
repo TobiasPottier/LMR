@@ -49,7 +49,7 @@ function StartNow() {
         if (data.email_exists) {
           window.location.href = '/Login';
         } else {
-          window.location.href = '/Signup';
+          window.location.href = '/Register';
         }
       }
     } catch (err) {
