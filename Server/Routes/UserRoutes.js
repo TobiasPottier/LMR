@@ -80,6 +80,50 @@ router.get('/me', async (req, res) => {
   }
 });
 
+// PATCH /me (Update user data)
+router.patch('/me', async (req, res) => {
+  try {
+    // 1. Check for Authorization header
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    // 2. Extract token (format "Bearer <token>")
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ error: 'Invalid token format' });
+    }
+
+    // 3. Verify/Decode
+    const decoded = jwt.verify(token, JWT_SECRET);
+    // decoded will contain { userId, email, iat, ... }
+
+    // 4. Find the user in DB
+    const user = await User.findById(decoded.userId).select('-password');
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // 5. Update the user fields from the request body
+    //    Only update fields you specifically allow, e.g. bio:
+    if (req.body.bio !== undefined) {
+      user.bio = req.body.bio;
+    }
+
+    // 6. Save updated user
+    await user.save();
+
+    // 7. Return the updated user
+    //    (You might exclude password or other sensitive fields)
+    res.status(200).json(user);
+
+  } catch (err) {
+    console.error(err);
+    return res.status(401).json({ error: 'Token is invalid or expired' });
+  }
+});
+
 
 // Route to check if user email exists in database
 router.post('/email', async (req, res) => {

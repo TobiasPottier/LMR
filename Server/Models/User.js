@@ -20,7 +20,15 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters long']
   },
-  watchedMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+  watchedMovies: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }
+  ],
+  // New bio field
+  bio: {
+    type: String,
+    default: '',
+    maxlength: [500, 'Bio must be at most 500 characters long']
+  }
 }, { timestamps: true });
 
 // Hash password before saving
