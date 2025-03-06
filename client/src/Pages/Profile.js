@@ -31,7 +31,7 @@ function Profile() {
       })
       .then((data) => {
         setUser(data);
-        setNewBio(data.bio || ''); // Initialize editable bio
+        setNewBio(data.bio || '');
       })
       .catch((err) => {
         console.error(err);
@@ -40,7 +40,6 @@ function Profile() {
   }, []);
 
   const handleLogout = () => {
-    // Remove token and redirect
     localStorage.removeItem('token');
     navigate('/startnow');
   };
@@ -57,7 +56,6 @@ function Profile() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    // Example PATCH request to update bio
     fetch('http://localhost:3001/users/me', {
       method: 'PATCH',
       headers: {
@@ -141,6 +139,26 @@ function Profile() {
           Log Out
         </button>
       </div>
+
+      {/* Watched Movies Row */}
+      {user.watchedMovies && user.watchedMovies.length > 0 && (
+        <div className="watched-movies-container">
+          <h2>Favorite Movies</h2>
+          <div className="watched-movies-row">
+            {user.watchedMovies.map((movie) => (
+              <div className="movie-card" key={movie.tmdbId}>
+                <img
+                  src={movie.poster_path}
+                  alt={movie.title}
+                  className="movie-poster"
+                />
+                <p className="movie-title">{movie.title}</p>
+                <p className="movie-date">{movie.release_date}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

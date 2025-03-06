@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../Models/user.js');
+const Movie = require('../Models/movie.js');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Create a new user
@@ -121,6 +122,49 @@ router.patch('/me', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(401).json({ error: 'Token is invalid or expired' });
+  }
+});
+
+router.post('/watch', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.status(401).json({ error: 'No token provided' });
+
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const userId = decoded.userId;
+
+    const { tmdbId } = req.body;
+    if (!tmdbId) return res.status(400).json({ error: 'tmdbId is required' });
+
+    const movie = await Movie.findOne({ tmdbId });
+    if (!movie) return res.status(404).json({ error: 'Movie not found' });
+
+    const movieData = {
+      tmdbId: movie.tmdbId,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date
+    };
+
+    // 1) Fetch the user
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    // 2) Check for duplicates
+    const alreadyWatched = user.watchedMovies.some(m => m.tmdbId === movieData.tmdbId);
+    if (alreadyWatched) {
+      return res.status(400).json({ error: 'Movie already in watched list' });
+    }
+
+    // 3) Push the movie data
+    user.watchedMovies.push(movieData);
+    await user.save();
+
+    return res.status(200).json({ message: 'Movie added to watched list', user });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error.message });
   }
 });
 

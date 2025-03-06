@@ -21,7 +21,12 @@ const userSchema = new mongoose.Schema({
     minlength: [6, 'Password must be at least 6 characters long']
   },
   watchedMovies: [
-    { type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }
+    {
+      tmdbId: { type: Number },
+      title: { type: String },
+      poster_path: { type: String },
+      release_date: { type: String }
+    }
   ],
   // New bio field
   bio: {
