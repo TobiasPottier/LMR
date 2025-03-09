@@ -180,3 +180,23 @@
 .scroll-button:hover {
   background-color: rgba(255,255,255,1);
 }
+
+.watched-movies-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.add-movie-button {
+  padding: 8px 16px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-movie-button:hover {
+  background-color: #1976d2;
+}

@@ -33,9 +33,6 @@ function Profile() {
     }
 
     // Fetch user data
-    console.log('token')
-    console.log(token)
-    console.log('token')
     fetch('http://localhost:3001/users/me', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -162,7 +159,14 @@ function Profile() {
       {/* Watched Movies Row */}
       {user.watchedMovies && user.watchedMovies.length > 0 && (
         <div className="watched-movies-container">
-          <h2>Favorite Movies</h2>
+          {/* Header row: Title + "Add Movie" button */}
+          <div className="watched-movies-header">
+            <h2>Favorite Movies</h2>
+            <button className="add-movie-button" onClick={() => navigate('/addmovie')}>
+              + Add Movie
+            </button>
+          </div>
+
           <div className="watched-movies-row-container">
             <button className="scroll-button left" onClick={scrollLeft}>
               &larr;

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const Movie = require('../Models/movie.js');
 
 // Search a movie
 router.post('/search', async (req, res) => {
@@ -31,5 +32,24 @@ router.post('/search', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
+// New endpoint: Request a random sample of movies
+router.post('/requestmovies', async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    if (!quantity || quantity <= 0) {
+      return res.status(400).json({ error: 'Quantity must be a positive number' });
+    }
+
+    // Use MongoDB aggregation with $sample to select random movies.
+    // If quantity exceeds total count, MongoDB returns all movies.
+    const movies = await Movie.aggregate([{ $sample: { size: quantity } }]);
+    res.json(movies);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
 module.exports = router;
