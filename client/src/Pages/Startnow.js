@@ -54,6 +54,7 @@ function StartNow() {
       }
     } catch (err) {
       console.error('Error sending email:', err);
+      setError('Something went wrong on our end. Please try again later.');
     }
   };
 
