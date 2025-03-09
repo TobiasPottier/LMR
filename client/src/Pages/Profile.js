@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
@@ -9,6 +9,22 @@ function Profile() {
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [newBio, setNewBio] = useState('');
 
+  // Ref for horizontal scrolling
+  const rowRef = useRef(null);
+
+  // Scroll handlers
+  const scrollLeft = () => {
+    if (rowRef.current) {
+      rowRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (rowRef.current) {
+      rowRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -17,6 +33,9 @@ function Profile() {
     }
 
     // Fetch user data
+    console.log('token')
+    console.log(token)
+    console.log('token')
     fetch('http://localhost:3001/users/me', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -144,18 +163,26 @@ function Profile() {
       {user.watchedMovies && user.watchedMovies.length > 0 && (
         <div className="watched-movies-container">
           <h2>Favorite Movies</h2>
-          <div className="watched-movies-row">
-            {user.watchedMovies.map((movie) => (
-              <div className="movie-card" key={movie.tmdbId}>
-                <img
-                  src={movie.poster_path}
-                  alt={movie.title}
-                  className="movie-poster"
-                />
-                <p className="movie-title">{movie.title}</p>
-                <p className="movie-date">{movie.release_date}</p>
-              </div>
-            ))}
+          <div className="watched-movies-row-container">
+            <button className="scroll-button left" onClick={scrollLeft}>
+              &larr;
+            </button>
+            <div className="watched-movies-row" ref={rowRef}>
+              {user.watchedMovies.map((movie) => (
+                <div className="movie-card" key={movie.tmdbId}>
+                  <img
+                    src={movie.poster_path}
+                    alt={movie.title}
+                    className="movie-poster"
+                  />
+                  <p className="movie-title">{movie.title}</p>
+                  <p className="movie-date">{movie.release_date}</p>
+                </div>
+              ))}
+            </div>
+            <button className="scroll-button right" onClick={scrollRight}>
+              &rarr;
+            </button>
           </div>
         </div>
       )}
