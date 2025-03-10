@@ -1,4 +1,4 @@
-// src/pages/AddMovie.js
+// src/pages/AddMovie.js 
 import React, { useEffect, useState } from 'react';
 import './AddMovie.css';
 
@@ -14,7 +14,7 @@ function AddMovie() {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ quantity: 40 })
+          body: JSON.stringify({ quantity: 100 })
         });
 
         if (!response.ok) {
