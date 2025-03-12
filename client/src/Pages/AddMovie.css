@@ -13,9 +13,42 @@
   color: #333;
 }
 
+/* Sort Buttons Container */
+.sort-buttons {
+  margin-bottom: 1rem;
+}
+
+.sort-button {
+  padding: 10px 20px;
+  margin: 0 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sort-button.active {
+  background-color: #FF4500;
+  color: #fff;
+}
+
+.sort-button:hover {
+  background-color: #e03e00;
+  color: #fff;
+}
+
 .error {
   color: red;
   margin-bottom: 1rem;
+}
+
+.loading {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #333;
 }
 
 /* Grid layout for movie cards */
@@ -28,7 +61,7 @@
 
 /* Style for each movie card */
 .movie-card {
-  position: relative; /* enable absolute positioning inside */
+  position: relative;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -45,14 +78,13 @@
   color: #fff;
 }
 
-/* Ensure movie info text is light in non-favorites */
 .movie-card.non-favorite .movie-info,
 .movie-card.non-favorite .movie-title,
 .movie-card.non-favorite .movie-date {
   color: #fff;
 }
 
-/* Movie poster styling remains unchanged */
+/* Movie poster styling */
 .movie-poster {
   width: 100%;
   height: 300px;

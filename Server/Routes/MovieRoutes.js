@@ -35,7 +35,7 @@ router.post('/search', async (req, res) => {
   }
 });
 
-// Request movies by quantity sorted by popularity, with user_favorite flag
+// Request movies by quantity sorted by popularity or vote, with user_favorite flag
 router.post('/requestmovies', async (req, res) => {
   try {
     // Check for the JWT in the Authorization header
@@ -60,15 +60,23 @@ router.post('/requestmovies', async (req, res) => {
     // Extract tmdbIds from user's watchedMovies array
     const watchedTmdbIds = user.watchedMovies.map(m => m.tmdbId);
 
-    // Validate quantity input from request body
-    const { quantity } = req.body;
+    // Validate quantity and sortBy input from request body
+    const { quantity, sortBy } = req.body;
     if (!quantity || quantity <= 0) {
       return res.status(400).json({ error: 'Quantity must be a positive number' });
     }
 
-    // Query for movies sorted by popularity (descending) limited to the requested quantity
+    // Set sort criteria based on sortBy input
+    let sortCriteria = { popularity: -1 }; // default
+    if (sortBy === 'score') {
+      sortCriteria = { vote_average: -1 };
+    } else if (sortBy === 'popularity') {
+      sortCriteria = { popularity: -1 };
+    }
+
+    // Query for movies sorted by the chosen criteria, limited to the requested quantity
     const movies = await Movie.find({})
-                              .sort({ popularity: -1 })
+                              .sort(sortCriteria)
                               .limit(quantity);
 
     // For each movie, add a user_favorite flag (true if movie is in watchedMovies)

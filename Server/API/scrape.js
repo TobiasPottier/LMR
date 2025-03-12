@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI, {
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_API_URL = 'https://api.themoviedb.org/3/movie/popular';
 
-// Function to fetch and save movies (only non-adult movies)
+// Function to fetch and save movies (only non-adult movies with poster and backdrop)
 async function fetchMovies() {
   try {
     // Fetch first page to determine total pages
@@ -26,8 +26,8 @@ async function fetchMovies() {
       }
     });
     
-    // const totalPages = firstResponse.data.total_pages;
-    const totalPages = 100; // or use firstResponse.data.total_pages if desired
+    // Use a fixed number or firstResponse.data.total_pages if desired
+    const totalPages = 1000; 
     console.log(`Total pages to fetch: ${totalPages}`);
 
     // Loop through all pages
@@ -46,18 +46,16 @@ async function fetchMovies() {
       for (const movie of movies) {
         // Only process movies that are not adult
         if (movie.adult) continue;
+        // Only process movies that have both a poster and a backdrop
+        if (!movie.poster_path || !movie.backdrop_path) continue;
         
         const movieData = {
           tmdbId: movie.id,
           title: movie.title,
-          backdrop_path: movie.backdrop_path
-            ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
-            : null,
+          backdrop_path: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
           overview: movie.overview,
           release_date: movie.release_date,
-          poster_path: movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : null,
+          poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
           popularity: movie.popularity,
           vote_average: movie.vote_average,
           vote_count: movie.vote_count
