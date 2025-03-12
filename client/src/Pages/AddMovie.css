@@ -1,10 +1,28 @@
 /* src/pages/AddMovie.css */
 .addmovie-container {
-  margin-top: 50px;
+  margin-top: 80px;
   padding: 2rem;
   background-color: #f7f7f7;
   text-align: center;
   font-family: sans-serif;
+  position: relative;
+}
+
+/* Back Button at top left */
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 5rem;
+  cursor: pointer;
+  color: #FF4500;
+  transition: color 0.3s;
+}
+
+.back-button:hover {
+  color: #e03e00;
 }
 
 .addmovie-container h1 {

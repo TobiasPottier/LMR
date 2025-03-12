@@ -1,8 +1,10 @@
 // src/pages/AddMovie.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AddMovie.css';
 
 function AddMovie() {
+  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
   const [sortBy, setSortBy] = useState('popularity');
@@ -102,8 +104,16 @@ function AddMovie() {
     }
   };
 
+  const handleBack = () => {
+    navigate('/profile');
+  };
+
   return (
     <div className="addmovie-container">
+      {/* Back Arrow */}
+      <button className="back-button" onClick={handleBack}>
+        ←
+      </button>
       <h1>Available Movies</h1>
       <div className="sort-buttons">
         <button
