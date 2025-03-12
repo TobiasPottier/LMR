@@ -98,6 +98,33 @@ function Profile() {
       });
   };
 
+  const handleRemoveMovie = async (tmdbId) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    try {
+      const response = await fetch('http://localhost:3001/users/unwatch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ tmdbId })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to remove movie from watched list');
+      }
+      const data = await response.json();
+      console.log(data.message);
+      // Remove the movie from the state:
+      setUser(prevUser => ({
+        ...prevUser,
+        watchedMovies: prevUser.watchedMovies.filter(movie => movie.tmdbId !== tmdbId)
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   if (error) {
     return (
       <div className="profile-container">
@@ -183,6 +210,9 @@ function Profile() {
                   />
                   <p className="movie-title">{movie.title}</p>
                   <p className="movie-date">{movie.release_date}</p>
+                  <button className="remove-movie-button" onClick={() => handleRemoveMovie(movie.tmdbId)}>
+                    Remove
+                  </button>
                 </div>
               ))}
             </div>
