@@ -27,6 +27,9 @@ function Profile() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    // console.log('token');
+    // console.log(token);
+    // console.log('token');
     if (!token) {
       setError('No token found. Please log in.');
       return;

@@ -168,6 +168,33 @@ router.post('/watch', async (req, res) => {
   }
 });
 
+router.post('/unwatch', async (req, res) => {
+  try {
+    // Get the token from the Authorization header
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.status(401).json({ error: 'No token provided' });
+
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const userId = decoded.userId;
+
+    // Get tmdbId from request body
+    const { tmdbId } = req.body;
+    if (!tmdbId) return res.status(400).json({ error: 'tmdbId is required' });
+
+    // Update the user's watchedMovies array by removing the movie with matching tmdbId
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { watchedMovies: { tmdbId: tmdbId } } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: 'Movie removed from watched list', user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Route to check if user email exists in database
 router.post('/email', async (req, res) => {
