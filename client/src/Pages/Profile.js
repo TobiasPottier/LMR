@@ -160,16 +160,15 @@ function Profile() {
       </div>
 
       {/* Watched Movies Row */}
-      {user.watchedMovies && user.watchedMovies.length > 0 && (
+      {user.watchedMovies && user.watchedMovies.length > 0 ? (
         <div className="watched-movies-container">
           {/* Header row: Title + "Add Movie" button */}
           <div className="watched-movies-header">
-            <h2>Favorite Movies</h2>
+            <h2 style={{ color: 'black' }}>Favorite Movies</h2>
             <button className="add-movie-button" onClick={() => navigate('/addmovie')}>
               + Add Movie
             </button>
           </div>
-
           <div className="watched-movies-row-container">
             <button className="scroll-button left" onClick={scrollLeft}>
               &larr;
@@ -192,7 +191,15 @@ function Profile() {
             </button>
           </div>
         </div>
+      ) : (
+        <div className="no-movies-container">
+          <p style={{ color: 'black' }}>Looks like you don't have any movies yet.</p>
+          <button className="add-movie-button" onClick={() => navigate('/addmovie')}>
+            + Add Movie
+          </button>
+        </div>
       )}
+
     </div>
   );
 }
