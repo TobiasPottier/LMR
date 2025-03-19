@@ -5,3 +5,6 @@ Server/node_modules
 
 # Ignore .env file
 Server/.env
+
+# Ignore /ai/data folder
+/ai/data
