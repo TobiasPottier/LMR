@@ -8,3 +8,6 @@ Server/.env
 
 # Ignore /ai/data folder
 /ai/data
+
+# Ignore /ai/models folder
+/ai/models
