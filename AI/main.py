@@ -8,8 +8,13 @@ model_path = os.path.join('models', 'svd_model.pkl')
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
+# THIS IS WRONG
 # Load the movies dataset; ensure this CSV has at least "tmdbId" and "title"
 movies_df = pd.read_csv('movies.csv')
+# THIS IS WRONG
+
+
+
 # Convert tmdbId to integer if needed
 movies_df['tmdbId'] = movies_df['tmdbId'].astype(int)
 
