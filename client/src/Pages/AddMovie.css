@@ -167,3 +167,18 @@
 .vote-value {
   font-weight: bold;
 }
+
+.search-container {
+  margin: 1rem 0;
+}
+
+.search-container input {
+  padding: 0.5rem;
+  width: 200px;
+  margin-right: 0.5rem;
+}
+
+.search-container button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../Models/user.js');
 const Movie = require('../Models/movie.js');
+const axios = require('axios');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Create a new user
@@ -212,5 +213,80 @@ router.post('/email', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+router.post('/recommendMovies', async (req, res) => {
+  try {
+    // 1) Authenticate via token
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ error: 'Invalid token format' });
+    }
+
+    // 2) Decode/verify token
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const userId = decoded.userId;
+
+    // 3) Fetch user from DB
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // 4) Extract watchedTmdbIds
+    const watchedTmdbIds = user.watchedMovies.map(movie => movie.tmdbId);
+
+    // 5) Call the Flask recommender endpoint
+    const flaskUrl = 'http://localhost:5123/recommend';  // Adjust if needed
+    const payload = {
+      watched_tmdb_ids: watchedTmdbIds,
+      top_n: 5  // or any default you'd like
+    };
+
+    const flaskResponse = await axios.post(flaskUrl, payload);
+    // We expect flaskResponse.data to look like { "tmdbIds": [238, 242, 111, ...] }
+    const recommendations = flaskResponse.data;
+
+    // 6) Now use getMoviesByTmdbIds() to fetch the minimal data from your DB
+    //    If flaskResponse.data is directly an array, adapt accordingly.
+    //    For example, if Flask returns an array of IDs, do:
+    //      const recommendedTmdbIds = flaskResponse.data;
+    //    If it returns { tmdbIds: [...] }, do:
+    const recommendedTmdbIds = recommendations.tmdbIds || [];
+
+    // Call your helper function
+    const recommendedMovies = await getMoviesByTmdbIds(recommendedTmdbIds);
+
+    // 7) Return the final movie data to the client
+    return res.status(200).json(recommendedMovies);
+
+  } catch (error) {
+    console.error(error);
+    if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
+      return res.status(401).json({ error: 'Invalid or expired token' });
+    }
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+async function getMoviesByTmdbIds(tmdbIds) {
+  if (!tmdbIds || !Array.isArray(tmdbIds) || tmdbIds.length === 0) {
+    throw new Error('tmdbIds must be a non-empty array');
+  }
+
+  // Query your Movie collection
+  const foundMovies = await Movie.find({ tmdbId: { $in: tmdbIds } });
+
+  // Construct minimal data objects
+  return foundMovies.map(movie => ({
+    tmdbId: movie.tmdbId,
+    title: movie.title,
+    poster_path: movie.poster_path,
+    release_date: movie.release_date
+  }));
+}
 
 module.exports = router;

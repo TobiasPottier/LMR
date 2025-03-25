@@ -242,3 +242,30 @@
 .remove-movie-button:hover {
   background-color: #e03e00;
 }
+
+/* AI Recommend Container */
+.ai-recommend-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.ai-recommend-button {
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ai-recommend-button:hover {
+  background-color: #1976d2;
+}
+
+.recommended-movies-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.5rem 0;
+}
