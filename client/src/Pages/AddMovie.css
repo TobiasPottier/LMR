@@ -2,11 +2,10 @@
 .addmovie-container {
   margin-top: 80px;
   padding: 2rem;
-  background-color: #f7f7f7;
+  background-color: #000000;
   text-align: center;
   font-family: sans-serif;
   position: relative;
-  background-color: #828282;
   min-height: 100vh;
 }
 
@@ -30,7 +29,7 @@
 .addmovie-container h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #333;
+  color: #ffffff;
 }
 
 /* Sort Buttons Container */

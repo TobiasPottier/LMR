@@ -38,7 +38,7 @@ function Login() {
 return (
     <div className="login-container">
         <h1>Welcome Back!</h1>
-        <p>Login using your email and password</p>
+        <h2>Login using your email and password</h2>
         <form onSubmit={handleSubmit} className="login-form">
             <input 
                 type="email" 
