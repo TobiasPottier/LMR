@@ -40,5 +40,25 @@ LMR/
 - Great showcase of integrating traditional ML techniques into a full-stack system
 
 
+
+---
+## Visual Demonstration:
+
+**Home Page**
+![Screenshot 2025-03-27 at 16 54 10](https://github.com/user-attachments/assets/d210954d-c47d-4107-8b5c-399089cc0bb6)
+![Screenshot 2025-03-27 at 16 54 19](https://github.com/user-attachments/assets/8ef08b7f-fd10-4480-a95f-ccc83c589281)
+
+**Sign Up**
+![Screenshot 2025-03-27 at 16 54 28](https://github.com/user-attachments/assets/6a009fc5-1553-46fa-b3f3-07f92e5f56cb)
+
+**Profile Page**
+![Screenshot 2025-03-27 at 16 55 03](https://github.com/user-attachments/assets/30c8afd3-053f-4e71-8968-1615c49e8970)
+
+**Add A Movie**
+![Screenshot 2025-03-27 at 16 55 10](https://github.com/user-attachments/assets/eaec3209-083a-4b66-a32b-3b8b8cee18b7)
+
+**AI Recommendations**
+![Screenshot 2025-03-27 at 16 58 18](https://github.com/user-attachments/assets/695f0740-1dd4-4e70-be9b-4761322177b1)
+
 ---
 _Note: This project is intended as a demonstration and is not packaged for direct public use or deployment._
