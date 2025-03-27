@@ -11,7 +11,6 @@ function StartNow() {
 
   const handleChange = (e) => {
     const value = e.target.value;
-    console.log('Button pressed'); // Log to check if the button is working
     setEmail(value);
     if (!emailRegex.test(value)) {
       setError('Please enter a valid email.');
@@ -22,8 +21,6 @@ function StartNow() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log('Button pressed'); // Log to check if the button is working
 
     if (!email || error) return;
 

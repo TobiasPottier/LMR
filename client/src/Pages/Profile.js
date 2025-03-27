@@ -28,9 +28,6 @@ function Profile() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    // console.log('token');
-    // console.log(token);
-    // console.log('token');
     if (!token) {
       setError('No token found. Please log in.');
       return;
@@ -116,7 +113,6 @@ function Profile() {
       }
       const data = await response.json();
       console.log(data.message);
-      // Remove the movie from the state:
       setUser(prevUser => ({
         ...prevUser,
         watchedMovies: prevUser.watchedMovies.filter(movie => movie.tmdbId !== tmdbId)
@@ -215,7 +211,6 @@ function Profile() {
       {/* Watched Movies Row */}
       {user.watchedMovies && user.watchedMovies.length > 0 ? (
         <div className="watched-movies-container">
-          {/* Header row: Title + "Add Movie" button */}
           <div className="watched-movies-header">
             <h2 style={{ color: 'black' }}>Favorite Movies</h2>
             <button className="add-movie-button" onClick={() => navigate('/addmovie')}>

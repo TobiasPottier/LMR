@@ -28,7 +28,6 @@ const userSchema = new mongoose.Schema({
       release_date: { type: String }
     }
   ],
-  // New bio field
   bio: {
     type: String,
     default: '',

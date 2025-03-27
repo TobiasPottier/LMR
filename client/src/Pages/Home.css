@@ -1,13 +1,13 @@
 /* src/pages/Home.css */
 .home-container {
-    background-color: #5725A3;
+    background-color: #000000;
     min-height: 100vh;
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    font-family: sans-serif; /* Adjust to your desired font */
+    font-family: sans-serif;
   }
   
   .hero-content {
@@ -34,10 +34,7 @@
     width: 400px;
     height: 300px;
     object-fit: cover;
-    /* If you want angled shapes, you can explore clip-path:
-       clip-path: polygon(...); 
-    */
-    border-radius: 8px; /* example styling */
+    border-radius: 8px;
   }
 
   .my-shape {
@@ -49,17 +46,17 @@
     background-color: #4b2a7b;
     transform: skewY(0deg);
     transform-origin: top left;
-    overflow: hidden; /* Hide parts of the image outside the shape */
+    overflow: hidden;
   }
   
   .my-shape img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image covers the container */
+    object-fit: cover;
   }
   
   .bottom-image-container {
     width: 75%;
-    margin: 50px auto 0 auto; /* centers container, pushes it down from preceding content */
+    margin: 50px auto 0 auto;
   }
   

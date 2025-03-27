@@ -3,7 +3,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const axios = require('axios');
 const mongoose = require('mongoose');
-const Movie = require('../Models/Movie'); // Ensure your Movie model path is correct
+const Movie = require('../Models/Movie');
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -27,7 +27,7 @@ async function fetchMoviesFromLinks() {
     .pipe(csv())  // parses CSV rows into JS objects
     .on('data', (row) => {
       // row format: { movieId, imdbId, tmdbId }
-      // Some rows might have empty tmdbId; handle that if needed
+      // Some rows might have empty tmdbId;
       const id = row.tmdbId ? row.tmdbId.trim() : null;
       if (id) {
         // Convert to number if your tmdbId is numeric
@@ -44,13 +44,11 @@ async function fetchMoviesFromLinks() {
           const response = await axios.get(url);
           const movie = response.data;
 
-          // Optional filters, e.g. skip adult or missing poster/backdrop
+          // Filters, e.g. skip adult or missing poster/backdrop
           if (movie.adult) {
-            // console.log(`Skipping adult movie: ${movie.title}`);
             continue;
           }
           if (!movie.poster_path || !movie.backdrop_path) {
-            // console.log(`Skipping movie without poster/backdrop: ${movie.title}`);
             continue;
           }
 
@@ -85,5 +83,4 @@ async function fetchMoviesFromLinks() {
     });
 }
 
-// Run the function
 fetchMoviesFromLinks();

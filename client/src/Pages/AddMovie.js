@@ -9,11 +9,10 @@ function AddMovie() {
   const [sortBy, setSortBy] = useState('popularity');
   const [loading, setLoading] = useState(false);
 
-  // NEW: search-related states
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
-  // Fetch movies on mount or when sort changes (existing code)
+  // Fetch movies on mount or when sort changes
   const fetchMovies = async () => {
     try {
       setLoading(true);
@@ -71,12 +70,11 @@ function AddMovie() {
       }
       const data = await response.json();
       // data is an array of { tmdbId, title, posterPath }
-      // If you want to unify the field names, map them to match your `movies`
       const mapped = data.map(movie => ({
         tmdbId: movie.tmdbId,
         title: movie.title,
-        poster_path: movie.posterPath,  // rename
-        user_favorite: false,           // default
+        poster_path: movie.posterPath,
+        user_favorite: false,
       }));
       setSearchResults(mapped);
     } catch (err) {
@@ -84,13 +82,12 @@ function AddMovie() {
     }
   };
 
-  // NEW: Clear search function
+  // Clear search function
   const handleClearSearch = () => {
     setSearchTerm('');
     setSearchResults([]);
   };
 
-  // The rest is the same as your existing handleWatch/handleUnwatch, etc.
   const handleWatch = async (tmdbId) => {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -108,7 +105,6 @@ function AddMovie() {
       }
       await response.json();
 
-      // Update either `movies` or `searchResults` if needed
       setMovies(prev =>
         prev.map(movie =>
           movie.tmdbId === tmdbId ? { ...movie, user_favorite: true } : movie
@@ -177,7 +173,7 @@ function AddMovie() {
       </button>
       <h1>Available Movies</h1>
 
-      {/* Sort Buttons (existing) */}
+      {/* Sort Buttons */}
       <div className="sort-buttons">
         <button
           className={`sort-button ${sortBy === 'popularity' ? 'active' : ''}`}
@@ -193,7 +189,7 @@ function AddMovie() {
         </button>
       </div>
 
-      {/* New: Search field */}
+      {/* Search field */}
       <div className="search-container">
         <input
           type="text"
@@ -202,7 +198,7 @@ function AddMovie() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button onClick={handleSearch}>Search</button>
-        <button onClick={handleClearSearch}>Clear</button>  {/* NEW */}
+        <button onClick={handleClearSearch}>Clear</button>
       </div>
 
       {/* Potential error message */}
@@ -231,7 +227,6 @@ function AddMovie() {
           ))}
         </div>
       ) : (
-        // Existing: default movies list
         <div className="movies-grid">
           {movies.map((movie) => (
             <div

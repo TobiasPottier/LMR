@@ -28,7 +28,7 @@ function Login() {
 
       const data = await response.json();
       localStorage.setItem('token', data.token); // store JWT
-      navigate('/profile'); // change this as needed
+      navigate('/profile');
     } catch (err) {
       console.error('Error during login:', err);
       setError('Invalid credentials, please try again.');

@@ -251,13 +251,9 @@ router.post('/recommendMovies', async (req, res) => {
     const recommendations = flaskResponse.data;
 
     // 6) Now use getMoviesByTmdbIds() to fetch the minimal data from your DB
-    //    If flaskResponse.data is directly an array, adapt accordingly.
-    //    For example, if Flask returns an array of IDs, do:
-    //      const recommendedTmdbIds = flaskResponse.data;
-    //    If it returns { tmdbIds: [...] }, do:
     const recommendedTmdbIds = recommendations.tmdbIds || [];
 
-    // Call your helper function
+    // Call the helper function
     const recommendedMovies = await getMoviesByTmdbIds(recommendedTmdbIds);
 
     // 7) Return the final movie data to the client
@@ -277,7 +273,7 @@ async function getMoviesByTmdbIds(tmdbIds) {
     throw new Error('tmdbIds must be a non-empty array');
   }
 
-  // Query your Movie collection
+  // Query the Movie collection
   const foundMovies = await Movie.find({ tmdbId: { $in: tmdbIds } });
 
   // Construct minimal data objects

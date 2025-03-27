@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <div className="home-container">
-      {/* Hero title on top */}
+      {/* Hero title */}
       <div className="hero-content" style={{ marginTop: '80px' }}>
         <h1 className="hero-title">Where AI meets cinema</h1>
-        <hr style={{ border: '1px solid black', width: '100%' }} />
+        <hr style={{ border: '1px solid white', width: '100%' }} />
       </div>
-      {/* The skewed shape */}
+      {/* Skewed shape */}
       <div className="my-shape" style={{ top: '300px', left: '50%' , width: '50%'}}>
         <img
           src='https://wallpapercat.com/w/full/f/0/7/321887-3840x2160-desktop-4k-007-wallpaper-image.jpg'

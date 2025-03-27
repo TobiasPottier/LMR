@@ -67,7 +67,7 @@ router.post('/requestmovies', async (req, res) => {
     }
 
     // Set sort criteria based on sortBy input
-    let sortCriteria = { popularity: -1 }; // default
+    let sortCriteria = { popularity: -1 };
     if (sortBy === 'score') {
       sortCriteria = { vote_average: -1 };
     } else if (sortBy === 'popularity') {
